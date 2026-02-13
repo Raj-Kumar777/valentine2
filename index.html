@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ranjana ❤️ Raj — Nepali Valentine</title>
+  <!-- Bootstrap 5 + Icons + Google Fonts + GSAP -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;600&family=Kristi&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <style>
+    /* same beautiful styles with refinements */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      min-height: 100vh;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(145deg, #ffb6c1 0%, #ff4d6d 50%, #c9184a 100%);
+      background-size: 300% 300%;
+      animation: gradientShift 12s ease infinite;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      position: relative;
+      overflow-x: hidden;
+    }
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .heart-particle {
+      position: fixed;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 1.8rem;
+      user-select: none;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+      animation: float 8s infinite ease-in-out;
+    }
+    @keyframes float {
+      0% { transform: translateY(0) rotate(0deg); }
+      100% { transform: translateY(-120vh) rotate(360deg); }
+    }
+    .glass-card {
+      background: rgba(255, 240, 245, 0.25);
+      backdrop-filter: blur(14px) saturate(180%);
+      -webkit-backdrop-filter: blur(14px);
+      border-radius: 3rem 3rem 2rem 2rem;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 30px 50px rgba(185, 30, 70, 0.4), 0 0 0 1px rgba(255, 220, 240, 0.6) inset;
+      padding: 2rem 1.8rem;
+      transition: all 0.3s;
+      color: #3a0a1f;
+      position: relative;
+      z-index: 10;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .home-section { transition: opacity 0.4s ease; }
+    .proposal-text {
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(2.2rem, 10vw, 4rem);
+      font-weight: 700;
+      color: #fff5f7;
+      text-shadow: 3px 3px 0 #b13e5c, 6px 6px 10px rgba(160, 20, 60, 0.4);
+      line-height: 1.2;
+    }
+    .sub-couple {
+      font-size: 1.2rem;
+      letter-spacing: 1px;
+      color: #ffe9f0;
+      background: rgba(200, 30, 70, 0.3);
+      display: inline-block;
+      padding: 0.4rem 1.8rem;
+      border-radius: 50px;
+      backdrop-filter: blur(4px);
+    }
+    .btn-romantic {
+      padding: 0.8rem 2.5rem;
+      font-size: 1.8rem;
+      font-weight: 600;
+      border-radius: 60px;
+      border: none;
+      transition: all 0.2s;
+      box-shadow: 0 10px 20px rgba(170, 30, 70, 0.5);
+      letter-spacing: 2px;
+    }
+    .btn-yes {
+      background: #ff4d6d;
+      color: white;
+      border: 2px solid #ffe6f0;
+      animation: gentleGlow 1.8s infinite alternate;
+    }
+    .btn-yes:hover {
+      background: #ff1a4a;
+      transform: scale(1.08);
+      box-shadow: 0 0 25px #ffb3c6;
+    }
+    @keyframes gentleGlow {
+      0% { box-shadow: 0 0 5px #ffb6c1, 0 0 10px #ff4d6d; }
+      100% { box-shadow: 0 0 25px #ffb6c1, 0 0 45px #ff165d; }
+    }
+    .btn-no {
+      background: #4a1a2a;
+      color: #fad1dc;
+      border: 2px solid #a13e55;
+      position: relative;
+      cursor: pointer;
+      transition: none;
+    }
+    .countdown-badge {
+      background: rgba(255, 220, 240, 0.6);
+      backdrop-filter: blur(4px);
+      border-radius: 40px;
+      padding: 0.5rem 1.4rem;
+      font-weight: 600;
+      color: #9f1f4a;
+      border: 1px solid white;
+      font-size: 1rem;
+    }
+    .button-wrapper {
+      position: relative;
+      min-height: 110px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-top: 1.5rem;
+    }
+    .btn-no { display: inline-block; will-change: transform; }
+
+    /* overlay full screen */
+    .valentine-overlay {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(135deg, #ff9aae, #ff4d6d, #c9184a);
+      background-size: 300% 300%;
+      animation: gradientShift 8s infinite;
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+      overflow-y: auto;
+      backdrop-filter: blur(6px);
+    }
+    .overlay-content {
+      background: rgba(255, 245, 250, 0.3);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 4rem 2rem 4rem 2rem;
+      border: 3px solid white;
+      padding: 2.5rem 2rem;
+      max-width: 1100px;
+      width: 100%;
+      color: #2d0a17;
+      box-shadow: 0 40px 70px rgba(0,0,0,0.3);
+      text-align: center;
+    }
+    .big-love-message {
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(2.8rem, 15vw, 5.5rem);
+      font-weight: 700;
+      color: #fff0f3;
+      text-shadow: 4px 4px 0 #b81b4b;
+      margin-bottom: 1rem;
+    }
+    /* nepali shayari style */
+    .shayari {
+      font-family: 'Kristi', cursive;
+      font-size: 2.2rem;
+      color: #fffbe6;
+      text-shadow: 2px 2px 0 #a1355a;
+      background: rgba(200, 50, 90, 0.3);
+      display: inline-block;
+      padding: 0.8rem 2rem;
+      border-radius: 60px;
+      backdrop-filter: blur(4px);
+      margin-bottom: 1.5rem;
+      line-height: 1.4;
+      max-width: 90%;
+    }
+    @media (min-width: 768px) {
+      .shayari { font-size: 2.8rem; }
+    }
+    /* whatsapp button */
+    .whatsapp-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #25D366;
+      color: white;
+      padding: 12px 30px;
+      border-radius: 60px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.2rem;
+      border: 2px solid white;
+      box-shadow: 0 10px 15px rgba(0,0,0,0.2);
+      transition: 0.3s;
+      margin: 20px 0;
+    }
+    .whatsapp-link:hover {
+      background: #128C7E;
+      transform: scale(1.05);
+      color: white;
+    }
+    /* photo & video grid - 6+6 */
+    .grid-half {
+      flex: 0 0 auto;
+      width: 100%;
+    }
+    @media (min-width: 768px) {
+      .grid-half {
+        width: 50%;
+      }
+    }
+    .placeholder-img, .video-placeholder {
+      width: 100%;
+      max-width: 300px;
+      border-radius: 30px;
+      border: 5px solid white;
+      box-shadow: 0 20px 30px #b34160;
+      margin: 0 auto;
+      background: #ffd9e2;
+      padding: 0.3rem;
+    }
+    .tiktok-video {
+      width: 100%;
+      border-radius: 40px;
+      border: 5px solid white;
+      box-shadow: 0 20px 30px #a5305a;
+      background: #2d0a17;
+      aspect-ratio: 9/16;
+      object-fit: cover;
+      max-width: 300px;
+    }
+    .audio-player {
+      width: 100%;
+      max-width: 280px;
+      margin: 0.5rem auto;
+      border-radius: 40px;
+      background: rgba(255,255,240,0.3);
+      border: 2px solid white;
+      color: #4a1a2a;
+    }
+    audio {
+      width: 100%;
+      border-radius: 30px;
+      background: #ffe3ec;
+    }
+    .music-control {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(255, 240, 245, 0.7);
+      backdrop-filter: blur(8px);
+      padding: 8px 15px;
+      border-radius: 40px;
+      z-index: 10000;
+      border: 1px solid white;
+      color: #b13e5c;
+      font-weight: 600;
+    }
+    /* heartbroken status pop */
+    .heartbroken-toast {
+      position: fixed;
+      top: 30%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(50, 10, 20, 0.9);
+      backdrop-filter: blur(10px);
+      color: #ffccd5;
+      font-size: 2rem;
+      padding: 20px 40px;
+      border-radius: 60px;
+      border: 3px solid #ff4d6d;
+      z-index: 20000;
+      box-shadow: 0 0 50px #ff1a4a;
+      font-family: 'Dancing Script', cursive;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+    
+    /* Loading animation */
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.2); opacity: 0.7; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    
+    /* Enhanced button hover effects */
+    .btn-romantic:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 25px rgba(170, 30, 70, 0.7);
+    }
+    
+    /* Mobile improvements */
+    @media (max-width: 767px) {
+      .glass-card {
+        padding: 1.5rem 1.2rem;
+        margin: 0 1rem;
+      }
+      .proposal-text {
+        font-size: clamp(1.8rem, 8vw, 3rem);
+      }
+      .btn-romantic {
+        padding: 0.7rem 2rem;
+        font-size: 1.5rem;
+        min-width: 120px;
+      }
+      .button-wrapper {
+        gap: 1rem;
+        min-height: 90px;
+      }
+    }
+    
+    /* Enhanced overlay animations */
+    .overlay-enter {
+      animation: overlayFadeIn 0.8s ease-out;
+    }
+    
+    @keyframes overlayFadeIn {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Loading Screen -->
+  <div id="loadingScreen" style="position: fixed; inset: 0; background: linear-gradient(145deg, #ffb6c1 0%, #ff4d6d 50%, #c9184a 100%); display: flex; align-items: center; justify-content: center; z-index: 100000; transition: opacity 0.8s ease;">
+    <div class="text-center text-white">
+      <div class="loading-heart" style="font-size: 4rem; animation: pulse 1.5s infinite;">❤️</div>
+      <h2 class="mt-3" style="font-family: 'Dancing Script', cursive; font-size: 2.5rem;">Loading Love...</h2>
+    </div>
+  </div>
+
+  <!-- floating hearts background -->
+  <div id="heart-particles-container" style="position: fixed; inset:0; pointer-events: none; z-index: 0;"></div>
+
+  <!-- Background Music -->
+  <audio id="romanticMusic" loop>
+    <source src="romantic-song.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- HOME SECTION -->
+  <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="glass-card home-section" id="homeCard">
+      <div class="text-center">
+        <span class="sub-couple mb-3">💑 Raj Kumar Chaudhary  💑</span>
+        <h1 class="proposal-text mt-3">Ranjana Chaudhary ❤️ <br> Will you be my Valentine?</h1>
+
+        <div class="countdown-badge d-inline-flex align-items-center gap-2 mt-4 mb-4" id="countdownTimer">
+          <i class="bi bi-heart-fill text-danger"></i>
+          <span id="daysCount"></span> days to Valentine!
+        </div>
+
+        <div class="button-wrapper" id="btnWrapper" style="position: relative;">
+          <button class="btn btn-romantic btn-yes" id="yesBtn">💖 YES</button>
+          <button class="btn btn-romantic btn-no" id="noBtn">❌ NO</button>
+        </div>
+
+        <p class="mt-4 text-light-emphasis" style="font-size:0.9rem; opacity:0.9;">❤️ जति माया गरे पनि कमै छ ❤️</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- VALENTINE OVERLAY -->
+  <div class="valentine-overlay" id="valentineOverlay">
+    <div class="overlay-content">
+      <h1 class="big-love-message" id="loveScaleText">I LOVE YOU ❤️</h1>
+      
+      <div class="shayari" id="shayariText">
+        तिमीलाई माया गर्ने मेरो मुटुको धड्कन हो
+        <br>तिम्रै लागि बग्छ रगत, तिम्रै लागि धड्कन हो
+      </div>
+
+      <!-- WhatsApp direct message link -->
+      <div class="text-center mt-4 mb-3">
+        <a href="https://wa.me/9779805149182?text=Yes!%20I%20want%20to%20be%20your%20Valentine!%20%F0%9F%92%95" 
+           target="_blank" class="whatsapp-link d-inline-flex align-items-center" id="whatsappYesBtn">
+          <i class="bi bi-whatsapp me-2" style="font-size: 1.8rem;"></i>
+          <span>Yes, I'll be your Valentine! 💖</span>
+        </a>
+        <p class="text-white mt-3 opacity-75" style="font-size: 0.9rem;">
+          <i class="bi bi-heart-fill text-danger me-1"></i>
+          Let's start our love story today
+          <i class="bi bi-heart-fill text-danger ms-1"></i>
+        </p>
+      </div>
+
+      <!-- two images - each col-6 on md (6+6) -->
+      <div class="row g-4 justify-content-center mb-4 mt-4">
+        <div class="col-12 col-md-6 d-flex flex-column align-items-center">
+          <img src="p1.jpeg"
+               alt="romance" class="img-fluid placeholder-img">
+         
+        </div>
+        <div class="col-12 col-md-6 d-flex flex-column align-items-center">
+          <img src="p2.jpeg"
+               alt="couple" class="img-fluid placeholder-img">
+          
+        </div>
+      </div>
+
+      <!-- two videos - each col-6 on md (6+6) -->
+      <div class="row g-4 justify-content-center mb-4">
+        <div class="col-12 col-md-6 d-flex flex-column align-items-center">
+          <div class="position-relative">
+            <video class="tiktok-video" autoplay loop muted playsinline id="video1">
+              <source src="v1.mp4" type="video/mp4">
+            </video>
+            <button class="btn btn-sm position-absolute top-0 end-0 m-2" 
+                    style="background: rgba(255,255,255,0.8); border-radius: 50%;" 
+                    onclick="toggleVideoSound('video1', this)">
+              <i class="bi bi-volume-mute"></i>
+            </button>
+          </div>
+          <p class="text-white mt-2">🎬 video1.mp4 (romantic)</p>
+        </div>
+        <div class="col-12 col-md-6 d-flex flex-column align-items-center">
+          <div class="position-relative">
+            <video class="tiktok-video" autoplay loop muted playsinline id="video2">
+              <source src="v2.mp4" type="video/mp4">
+            </video>
+            <button class="btn btn-sm position-absolute top-0 end-0 m-2" 
+                    style="background: rgba(255,255,255,0.8); border-radius: 50%;" 
+                    onclick="toggleVideoSound('video2', this)">
+              <i class="bi bi-volume-mute"></i>
+            </button>
+          </div>
+          <p class="text-white mt-2">🎬 video2.mp4 (cute)</p>
+        </div>
+      </div>
+    </div>
+  </div>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      const noBtn = document.getElementById('noBtn');
+      const yesBtn = document.getElementById('yesBtn');
+      const homeCard = document.getElementById('homeCard');
+      const overlay = document.getElementById('valentineOverlay');
+      const wrapper = document.getElementById('btnWrapper');
+      const loveScaleText = document.getElementById('loveScaleText');
+      
+      let origX = 0, origY = 0;
+
+      function recordOriginalPosition() {
+        const currentTransform = noBtn.style.transform;
+        noBtn.style.transform = 'none';
+        origX = noBtn.offsetLeft;
+        origY = noBtn.offsetTop;
+        noBtn.style.transform = currentTransform;
+      }
+
+      window.addEventListener('load', function() {
+        recordOriginalPosition();
+        initFloatingHearts(20);
+        updateCountdown();
+      });
+      window.addEventListener('resize', function() {
+        recordOriginalPosition();
+      });
+
+      // Move NO button on hover/click
+      function moveNoButton() {
+        const wrapperRect = wrapper.getBoundingClientRect();
+        const noBtnRect = noBtn.getBoundingClientRect();
+        const maxLeft = wrapper.clientWidth - noBtn.offsetWidth;
+        const maxTop = wrapper.clientHeight - noBtn.offsetHeight;
+        const newLeft = Math.max(0, Math.min(maxLeft, Math.random() * maxLeft));
+        const newTop = Math.max(0, Math.min(maxTop, Math.random() * maxTop));
+        const deltaX = newLeft - origX;
+        const deltaY = newTop - origY;
+
+        gsap.to(noBtn, {
+          x: deltaX,
+          y: deltaY,
+          duration: 0.18,
+          ease: "power2.out",
+          overwrite: true
+        });
+      }
+
+      noBtn.addEventListener('mouseenter', moveNoButton);
+      noBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        moveNoButton(); // make it run away even on click
+        // Show heartbroken status (even if moved, click still registers)
+        showHeartbroken();
+        return false;
+      });
+      noBtn.addEventListener('touchstart', function(e) {
+        e.preventDefault();
+        moveNoButton();
+        showHeartbroken();
+      });
+
+      // Heartbroken status function
+      function showHeartbroken() {
+        // create a floating heartbroken message
+        const toast = document.createElement('div');
+        toast.className = 'heartbroken-toast';
+        toast.innerHTML = '💔 मुटु टुक्रियो 💔';
+        document.body.appendChild(toast);
+        // animate in and out
+        gsap.fromTo(toast, 
+          { scale: 0, opacity: 0, y: -50 },
+          { scale: 1, opacity: 1, y: 0, duration: 0.4, ease: "back.out(1.2)" }
+        );
+        gsap.to(toast, {
+          opacity: 0,
+          scale: 0.5,
+          y: -100,
+          duration: 1.2,
+          delay: 1.5,
+          onComplete: () => toast.remove()
+        });
+      }
+
+      // YES button: show overlay with all romantic stuff
+      yesBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        gsap.to(homeCard, { opacity: 0, duration: 0.4, onComplete: () => {
+          homeCard.style.display = 'none';
+        }});
+
+        overlay.style.display = 'flex';
+        gsap.fromTo(overlay, 
+          { opacity: 0, scale: 0.9 },
+          { opacity: 1, scale: 1, duration: 0.8, ease: "back.out(1.2)" }
+        );
+
+        gsap.fromTo(loveScaleText, 
+          { scale: 0.2, rotation: -10 },
+          { scale: 1, rotation: 0, duration: 1, ease: "elastic.out(1, 0.3)", delay: 0.2 }
+        );
+        gsap.fromTo('#shayariText', 
+          { opacity: 0, y: 30 },
+          { opacity: 1, y: 0, duration: 1.2, delay: 0.3, ease: "power3.out" }
+        );
+
+        heartExplosion();
+
+        for (let i = 0; i < 15; i++) {
+          createFloatingHeartOverlay();
+        }
+      });
+
+      function heartExplosion() {
+        for (let i = 0; i < 30; i++) {
+          const heart = document.createElement('div');
+          heart.innerHTML = '❤️';
+          heart.style.position = 'absolute';
+          heart.style.fontSize = `${Math.random() * 40 + 20}px`;
+          heart.style.left = '50%';
+          heart.style.top = '50%';
+          heart.style.color = '#ffe6f0';
+          heart.style.textShadow = '0 0 10px #ff1a4a';
+          heart.style.pointerEvents = 'none';
+          heart.style.zIndex = '10001';
+          overlay.appendChild(heart);
+
+          const angle = Math.random() * Math.PI * 2;
+          const distance = 150 + Math.random() * 400;
+          const tx = Math.cos(angle) * distance;
+          const ty = Math.sin(angle) * distance - 100;
+
+          gsap.to(heart, {
+            x: tx,
+            y: ty,
+            rotation: Math.random() * 180 - 90,
+            opacity: 0,
+            duration: 1.8 + Math.random(),
+            ease: "power4.out",
+            onComplete: () => heart.remove()
+          });
+        }
+      }
+
+      function createFloatingHeartOverlay() {
+        const heart = document.createElement('div');
+        heart.innerHTML = '❤️';
+        heart.style.position = 'absolute';
+        heart.style.fontSize = `${Math.random() * 50 + 20}px`;
+        heart.style.left = Math.random() * 100 + '%';
+        heart.style.top = Math.random() * 100 + '%';
+        heart.style.color = 'rgba(255, 220, 240, 0.8)';
+        heart.style.pointerEvents = 'none';
+        heart.style.zIndex = '10000';
+        overlay.appendChild(heart);
+
+        gsap.to(heart, {
+          y: -300,
+          x: (Math.random() - 0.5) * 300,
+          rotation: 360,
+          opacity: 0,
+          duration: 4 + Math.random() * 3,
+          ease: "sine.inOut",
+          onComplete: () => heart.remove()
+        });
+      }
+
+      function initFloatingHearts(count) {
+        const container = document.getElementById('heart-particles-container');
+        for (let i = 0; i < count; i++) {
+          const heart = document.createElement('div');
+          heart.className = 'heart-particle';
+          heart.innerHTML = ['❤️','🧡','💖','💗','💓','💕','💞'][Math.floor(Math.random() * 7)];
+          heart.style.left = Math.random() * 100 + '%';
+          heart.style.bottom = -Math.random() * 20 + '%';
+          heart.style.fontSize = (Math.random() * 3 + 1) + 'rem';
+          heart.style.animationDelay = Math.random() * 8 + 's';
+          heart.style.opacity = Math.random() * 0.4 + 0.2;
+          heart.style.transform = `rotate(${Math.random() * 60 - 30}deg)`;
+          container.appendChild(heart);
+        }
+      }
+
+      function updateCountdown() {
+        const daysSpan = document.getElementById('daysCount');
+        const today = new Date();
+        const year = today.getFullYear();
+        let valentine = new Date(year, 1, 14);
+        if (today > valentine) {
+          valentine = new Date(year + 1, 1, 14);
+        }
+        const diffTime = valentine - today;
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        daysSpan.innerText = diffDays;
+      }
+
+      // Auto-play music with user interaction
+      let musicStarted = false;
+      function startMusic() {
+        if (!musicStarted) {
+          const music = document.getElementById('romanticMusic');
+          if (music) {
+            music.volume = 0.3;
+            music.play().catch(e => console.log('Auto-play prevented:', e));
+            musicStarted = true;
+          }
+        }
+      }
+            
+      // Start music on first user interaction
+      document.body.addEventListener('click', startMusic, { once: true });
+      document.body.addEventListener('touchstart', startMusic, { once: true });
+      
+      // music toggle
+      const music = document.getElementById('romanticMusic');
+      const muteBtn = document.getElementById('toggleMuteBtn');
+      if (muteBtn) {
+        muteBtn.addEventListener('click', function() {
+          if (music.muted) {
+            music.muted = false;
+            music.volume = 0.3;
+            muteBtn.innerHTML = '🔊 mute';
+          } else {
+            music.muted = true;
+            muteBtn.innerHTML = '🔇 unmute';
+          }
+        });
+      }
+      
+      // Hide loading screen after content loads
+      window.addEventListener('load', function() {
+        setTimeout(() => {
+          const loadingScreen = document.getElementById('loadingScreen');
+          if (loadingScreen) {
+            loadingScreen.style.opacity = '0';
+            setTimeout(() => {
+              loadingScreen.style.display = 'none';
+            }, 800);
+          }
+        }, 1500);
+      });
+
+      // Video sound toggle function
+      function toggleVideoSound(videoId, button) {
+        console.log('Toggling sound for:', videoId);
+        const video = document.getElementById(videoId);
+        const icon = button.querySelector('i');
+        
+        if (!video || !icon) {
+          console.error('Video or icon not found');
+          return;
+        }
+        
+        console.log('Current muted state:', video.muted);
+        
+        // Try to play the video first (required for unmute in some browsers)
+        video.play().catch(e => console.log('Play error:', e));
+        
+        if (video.muted) {
+          video.muted = false;
+          icon.className = 'bi bi-volume-up';
+          button.style.background = 'rgba(255,255,255,0.9)';
+          console.log('Video unmuted');
+        } else {
+          video.muted = true;
+          icon.className = 'bi bi-volume-mute';
+          button.style.background = 'rgba(255,255,255,0.8)';
+          console.log('Video muted');
+        }
+      }
+
+      setTimeout(recordOriginalPosition, 200);
+    })();
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
